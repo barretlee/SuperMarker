@@ -6,7 +6,8 @@
 
 <style type="text/css">
     .box {
-        width: 606px; margin: 100px auto;
+        min-width: 600px; 
+        position: relative;
     }
     #can {
         border: 1px solid #CCC;
@@ -14,10 +15,16 @@
     button {
         cursor: pointer;
     }
+    .line {
+        position: absolute;
+        line-height: 0;
+        font-size: 0;
+        z-index: 100;
+    }
 </style>
 
-<div class="box">
-    <canvas id="can" height="500" width="606"></canvas>
+<div class="box" id="box">
+    <canvas id="can" height="300" width="600"></canvas>
     <br /><br />
     <input type="file" value="Choose Image" id="f" />
     <button id="cols">show columns</button><button id="rows">show rows</button>
@@ -28,9 +35,10 @@
       , f = document.getElementById("f")
       , cols = document.getElementById("cols")
       , rows = document.getElementById("rows")
+      , box = document.getElementById("box")
       , ctx = can.getContext("2d")
       , ready = false
-      , width, height, rowLines;
+      , width, height;
 
     var MAX_STEPS = 6
       , DECIMAL = 3;
@@ -59,20 +67,21 @@
 
     cols.onclick = function(){
         if(!ready) return;
-        var lines = getLines("col", [0, 100, width, 200]);
-        drawLines(lines, "col", [0, 100, width, 200]);
+        var lines = getLines("col");
+        drawLinesWithDOM(lines, "col");
     };
 
     rows.onclick = function(){
         if(!ready) return;
-        var rect = [0, 273, width, height - 273];
+        var rect = [0, 213, width, 51];
         var lines = getLines("row", rect);
-        drawLines(lines, "row", rect);
+        drawLinesWithDOM(lines, "row", rect);
     };
+
 
     function getLines(direct, rect){
         var rect = rect || [0, 0, width, height]
-          , imageData = ctx.getImageData.apply(ctx, rect)
+          , imageData = ctx.getImageData.apply(ctx, [0, 0, width, height])
           , direct = direct || "col"
           , pixels = imageData.data
           , lineArr = []
@@ -84,13 +93,13 @@
             outer = imageData.height;
             inner = imageData.width;
 
-            for(i = oBegin; i < outer + oBegin; i++){
+            for(i = oBegin; i < rect[3] + oBegin; i++){
                 var iStart = width * i + iBegin
                   , rate = {}
                   , rgba = ""
-                  , j, v, point;
+                  , j, v;
 
-                for(j = iStart; j < iStart + inner; j++) {
+                for(j = iStart; j < iStart + rect[2]; j++) {
                     rgba = pixels[j * 4] + "-" +
                            pixels[j * 4 + 1] + "-" + 
                            pixels[j * 4 + 2] + "-" + 
@@ -115,12 +124,12 @@
             outer = imageData.width;
             inner = imageData.height;
 
-            for(i = oBegin; i < outer + oBegin; i++) {
+            for(i = oBegin; i < rect[2] + oBegin; i++) {
                 var rate = {}
                   , rgba = ""
                   , j, v, point;
 
-                for(j = iBegin; j < iBegin + inner; j++) {
+                for(j = iBegin; j < iBegin + rect[3]; j++) {
                     point = (j * width + i) * 4;
                     rgba = pixels[point] + "-" +
                            pixels[point + 1] + "-" + 
@@ -170,9 +179,12 @@
             }
         }
 
+        if(tags[tags.length - 1] < len){
+            tags.push(len);
+        }
+
         console.log(tags);
 
-        // drawLines(tags, direct, rect);
         return tags;
 
     }
@@ -189,15 +201,49 @@
             ctx.beginPath();
 
             if(direct == "col"){
-                ctx.moveTo(rect[0], lines[i]);
-                ctx.lineTo(rect[0] + rect[2], lines[i]);
+                ctx.moveTo(rect[0], lines[i] + rect[1]);
+                ctx.lineTo(rect[0] + rect[2], lines[i] + rect[1]);
             } else {
-                ctx.moveTo(lines[i], rect[1]);
-                ctx.lineTo(lines[i], rect[1] + rect[3]);
+                ctx.moveTo(lines[i] + rect[0], rect[1]);
+                ctx.lineTo(lines[i] + rect[0], rect[1] + rect[3]);
             }
             
             ctx.stroke();
         }
+    }
+
+    function drawLinesWithDOM(lines, direct, rect){
+
+        var rect = rect || [0, 0, width, height];
+
+        for(var i = 0, len = lines.length; i < len; i++){
+
+            var line = document.createElement("div");
+            line.className = "line";
+
+            if(direct == "col"){
+                with(line.style){
+                    left = rect[0] + 1;
+                    top = rect[1] + lines[i] + 1;
+                    width = rect[2];
+                    height = 0;
+                    borderTop = "1px solid red";
+                }
+            } else {
+                with(line.style){
+                    left = rect[0] + lines[i] + 1;
+                    top = rect[1] + 1;
+                    width = 0;
+                    height = rect[3];
+                    borderLeft = "1px solid red";
+                }
+            }
+            box.appendChild(line);
+        }
+    }
+
+    function draeRectange(){
+        
     }
 </script>
 
