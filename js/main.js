@@ -1,22 +1,31 @@
+/**
+ * Main Part
+ * @author Barret Lee(barret.china@gmail.com)
+ * @date 11/07/2014
+ */
+
 var can = document.getElementById("can")
-  , f = document.getElementById("f")
+  , file = document.getElementById("file")
   , cols = document.getElementById("cols")
   , rows = document.getElementById("rows")
   , clear = document.getElementById("clear")
+  , net = document.getElementById("net")
+  , select = document.getElementById("select")
+  , info = document.getElementById("info")
   , del = document.getElementById("del")
   , box = document.getElementById("box")
   , ctx = can.getContext("2d")
-  , ready = false
-  , delLines = []
   , width, height;
 
 
 window.onload = function() {
+	var delLines = [];
 
-	f.onchange = function(e){
+	// Select File
+	file.onchange = function(e){
 	    var resultFile = e.target.files[0];
 
-	    ready = false;
+	    Core.config['ready'] = false;
 	    Core.clearLines();
 
 	    if (resultFile) {
@@ -33,33 +42,96 @@ window.onload = function() {
 	                can.height = height = this.height;
 	                ctx.drawImage(img, 0, 0);
 
-	                ready = true;
+	                Core.config['ready'] = true;
 	            }
 	        }; 
 	    }
 	};
 
+	// Cols draw
 	cols.onclick = function(){
-	    if(!ready) return;
+		Core.setTurnerTag('drawlinesInRectTag');
+		tCls(this);
 
-	    Core.config['MAX_STEPS'] = 8;
+		Core.drawRectange(box, function(rect){
+		    var clines = Core.getLines("col", rect);
 
-	    var lines = Core.getLines("col");
-	    Core.drawLinesWithDOM(lines, "col");
+	    	Core.config['MAX_STEPS'] = 8;
+		    Core.drawLinesWithDOM(clines, "col", rect);
+		});
 	};
 
+	// rows draw
 	rows.onclick = function(){
-	    if(!ready) return;
+		Core.setTurnerTag('drawlinesInRectTag');
+		tCls(this);
 
-	    Core.config['MAX_STEPS'] = 8;
-	    
-	    //var rect = [0, 213, width, 51];
-	    var lines = Core.getLines("row");
-	    Core.drawLinesWithDOM(lines, "row");
+		Core.drawRectange(box, function(rect){
+		    var rlines = Core.getLines("row", rect);
+
+	    	Core.config['MAX_STEPS'] = 8;
+		    Core.drawLinesWithDOM(rlines, "row", rect);
+		});
 	};
 
-	clear.onclick = Core.clearLines;
+	// Net draw
+	net.onclick = function(){
+		Core.setTurnerTag('drawlinesInRectTag');
+		tCls(this);
 
+		Core.drawRectange(box, function(rect){
+		    var clines = Core.getLines("col", rect);
+		    var rlines = Core.getLines("row", rect);
+		    Core.drawLinesWithDOM(clines, "col", rect);
+		    Core.drawLinesWithDOM(rlines, "row", rect);
+		});
+	};
+
+	// info box 
+	info.onclick = function(){
+		Core.setTurnerTag('drawInfoRectTag');
+		tCls(this);
+
+		Core.drawRectange(box, function(rect){
+		    Core.getInfoRect(rect, function(rect){
+		    	// console.log(rect);
+		    	Core.drawInfoRect(box, rect);
+		    });
+		});
+	};
+
+	// select to delete
+	select.onclick = function(){
+		Core.setTurnerTag('selectlinesInRectTag');
+		tCls(this);
+
+		Core.drawRectange(box, function(rect){
+		    Core.detectInRectange(document.querySelectorAll(".line"), rect, function(lines){
+		    	[].slice.call(lines).forEach(function(item){
+		    		item.setAttribute("data-del", 'yes');
+		    	});
+
+		    	delLines = delLines.concat(lines);
+		    });
+		});
+	};
+	// cancal delete for some lines
+	document.addEventListener("click", function(e){
+		var $this = e.target;
+		if($this.getAttribute("data-del") == "yes"){
+			$this.removeAttribute("data-del");
+		}
+
+    	delLines = [];
+		[].slice.call(document.querySelectorAll(".line")).forEach(function(item){
+    		if(item.getAttribute("data-del") == 'yes'){
+    			delLines.push(item);
+    		}
+    	});
+
+	}, true);
+
+	// delete selected lines
 	del.onclick = function(){
 		if(delLines.length > 0){
 			[].slice.call(delLines).forEach(function(item){
@@ -67,39 +139,20 @@ window.onload = function() {
 			});
 		}
 		delLines = [];
+	};
+
+	// clear all lines
+	clear.onclick = function(){
+		Core.clearLines();
+	};
+
+
+	// toggle class "on"
+	function tCls(that){
+		[].slice.call(document.querySelectorAll("#control div")).forEach(function(item){
+			item.className = "";
+		});
+		Core.toggleClass("on", that);
 	}
-
-	drawlinesInRectTag = false;
-	Core.drawRectange(box, function(rect){
-		if(!drawlinesInRectTag) return;
-	    var clines = Core.getLines("col", rect);
-	    //var rlines = getLines("row", rect);
-	    Core.drawLinesWithDOM(clines, "col", rect);
-	    //drawLinesWithDOM(rlines, "row", rect);
-	});
-
-	selectlinesInRectTag = false;
-	Core.drawRectange(box, function(rect){
-		if(!selectlinesInRectTag) return;
-	    
-	    Core.detectInRectange(document.querySelectorAll(".line"), rect, function(lines){
-	    	[].slice.call(lines).forEach(function(item){
-	    		item.style.borderColor = "green";
-	    		item.setAttribute("data-del", true);
-	    	});
-
-	    	delLines = delLines.concat(lines);
-	    });
-	});
-
-	drawInfoRectTag = true;
-	Core.drawRectange(box, function(rect){
-		if(!drawInfoRectTag) return;
-	    
-	    Core.getInfoRect(rect, function(rect){
-	    	console.log(rect);
-	    	Core.drawInfoRect(box, rect);
-	    });
-	});
 };
 

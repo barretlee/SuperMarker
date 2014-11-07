@@ -5,14 +5,18 @@
 </head>
 
 <body>
+<div id="control">
+    <div id="open">OPEN<input type="file" value="Choose Image" id="file" /></div>
+    <div id="select" data-tag="selectlinesInRectTag">SELET</div>
+    <div id="del">DELETE</div>
+    <div id="info" data-tag="drawInfoRectTag">INFO</div>
+    <div id="cols" data-tag="drawlinesInRectTag">COLS</div>
+    <div id="rows" data-tag="drawlinesInRectTag">ROWS</div>
+    <div id="net" data-tag="drawlinesInRectTag">NET</div>
+    <div id="clear">CLEAR</div>
+</div>
 <div class="box" id="box">
-    <canvas id="can" height="300" width="600"></canvas>
-    <br /><br />
-    <input type="file" value="Choose Image" id="f" />
-    <button id="cols">show columns</button>
-    <button id="rows">show rows</button>
-    <button id="clear">clear lines</button>
-    <button id="del">delete lines</button>
+    <canvas id="can" height="500" width="600"></canvas>
 </div>
 
 <script type="text/javascript" src="./js/core.js"></script>

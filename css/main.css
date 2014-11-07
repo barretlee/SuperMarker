@@ -1,3 +1,8 @@
+/**
+ * @author Barret Lee(barret.china@gmail.com)
+ * @date 11/07/2014
+ */
+
 body {
     user-select: none;
     -webkit-user-select: none;
@@ -5,9 +10,58 @@ body {
 .box {
     min-width: 600px; 
     position: relative;
+    margin-left: 100px;
 }
 #can {
     border: 1px solid #CCC;
+}
+#control {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 80px;
+    border: 1px solid #CCC;
+    box-shadow: 3px 3px 5px #CCC;
+}
+#control div {
+    width: 50px;
+    height: 24px;
+    padding: 0 5px;
+    border: 1px solid #CCC;
+    background: #EFEFEF;
+    border-radius: 3px;
+    line-height: 24px;
+    text-align: center;
+    margin: 10px 8px;
+    cursor: pointer;
+    position: relative;
+    font-style: 12px;
+    color: #555;
+}
+div#open {
+    background: #CCC;
+}
+div#del {
+    background: #FFF;
+    color: #000;
+}
+div#clear {
+    background: #EF5555;
+    color: #FFF;
+}
+div#cols, div#rows, div#net {
+    background: #ECFFF3;
+}
+#file {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.001;
+    cursor: pointer;
 }
 button {
     cursor: pointer;
@@ -25,6 +79,14 @@ button {
 }
 .info-rect {
     position: absolute;
-    border: 2px solid blue;
     z-index: 90;
+}
+.on {
+    background: #969696 !important;
+    color: #FFF !important;
+}
+[data-del=yes] {
+    border-width: 2px !important;
+    border-color: green!important;
+    cursor: pointer;
 }
