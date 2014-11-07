@@ -21,4 +21,10 @@ button {
 .area-rect {
     position: absolute;
     border: 1px dotted red;
+    z-index: 80;
+}
+.info-rect {
+    position: absolute;
+    border: 2px solid blue;
+    z-index: 90;
 }
