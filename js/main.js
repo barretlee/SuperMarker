@@ -37,9 +37,11 @@ window.onload = function() {
     file.onchange = function(e){
         var resultFile = e.target.files[0];
 
-        open2.setAttribute("loading", "yes");
-        open2.innerHTML = "Loading...";
-        
+        if(open2){
+            open2.setAttribute("loading", "yes");
+            open2.innerHTML = "Loading...";
+        }
+
         Core.config['ready'] = false;
         Core.clearLines();
 
