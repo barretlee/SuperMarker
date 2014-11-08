@@ -37,6 +37,9 @@ window.onload = function() {
     file.onchange = function(e){
         var resultFile = e.target.files[0];
 
+        open2.setAttribute("loading", "yes");
+        open2.innerHTML = "Loading...";
+        
         Core.config['ready'] = false;
         Core.clearLines();
 
@@ -66,8 +69,6 @@ window.onload = function() {
     open2.onclick = function(){
         if(open2.getAttribute("loading") == "yes") return;
         file.click();
-        open2.setAttribute("loading", "yes");
-        open2.innerHTML = "Loading...";
     };
 
     // Cols draw
