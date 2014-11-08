@@ -1,24 +1,72 @@
 /**
+ * CSS
  * @author Barret Lee(barret.china@gmail.com)
  * @date 11/07/2014
  */
 
+@charset "utf8";
+
+body, div {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     user-select: none;
     -webkit-user-select: none;
+    font-size: 12px;
+    font-family: 'Monaco','Source Code Pro', 'Consolas','Inconsolata','Ubuntu Mono','DejaVu Sans Mono','Courier New','Droid Sans Mono','Hiragino Sans GB','Microsoft Yahei','Menlo',monospace;
+
+}
+.header {
+    height: 40px;
+    padding: 0 10px;
+    background: #333;
+    box-shadow: 0 3px 5px #333;
+}
+.header h1 {
+    line-height: 40px;
+    color: #FFF;
+}
+.header h1 span {
+    font-size: 12px;
+}
+.header h1 a {
+    color: #FFF;
+    text-decoration: none;
+}
+.header h1 a:hover {
+    border-bottom: 1px dotted #FFF;
+}
+.github-star {
+    float: right;
+    margin-top: 10px;
 }
 .box {
     min-width: 600px; 
     position: relative;
-    margin-left: 100px;
+}
+.wrapper {
+    position: absolute;
+    top: 60px;
+    bottom: 15px;
+    left: 110px;
+    right: 15px;
+    overflow: hidden;
+    border: 1px solid #CCC;
 }
 #can {
-    border: 1px solid #CCC;
+}
+#control > * {
+    transition: all 0.4s ease;
+    -weblit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
 }
 #control {
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 60px;
     width: 80px;
     border: 1px solid #CCC;
     box-shadow: 3px 3px 5px #CCC;
@@ -37,6 +85,41 @@ body {
     position: relative;
     font-style: 12px;
     color: #555;
+}
+#control div::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    top: 2px;
+    white-space: nowrap;
+    line-height: 20px;
+    background: #333;
+    box-shadow: 1px 1px 4px #333;
+    padding: 0 8px;
+    color: #FFF;
+    border-radius: 2px;
+    z-index: 120;
+    display: none;
+
+}
+#control div::before {
+    content: " ";
+    position: absolute;
+    left: 62px;
+    top: 9px;
+    height: 0;
+    width: 0;
+    border: 4px solid transparent;
+    border-right-color: #333;
+    z-index: 120;
+    visibility: hidden;
+    cursor: default;
+}
+#control div:hover::before {
+    visibility: visible;
+}
+#control div:hover::after {
+    display: block;
 }
 div#open {
     background: #CCC;
@@ -79,7 +162,25 @@ button {
 }
 .info-rect {
     position: absolute;
-    z-index: 90;
+    z-index: 110;
+}
+.color-info-box {
+    position: absolute;
+    border: 1px solid white;
+    padding: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 72px;
+    background: rgba(255, 255, 255, 0.5);
+}
+.color-info-box span {
+    content: " ";
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border: 1px solid #CCC;
+    float: left;
+    margin-right: 4px;
 }
 .on {
     background: #969696 !important;

@@ -1,25 +1,37 @@
 <html>
 <head>
-    <title>Auto Generate Box Size</title>
+    <meta charset="utf8" />
+    <title>Super Marker</title>
+    <meta name="author" content="Barret Lee" />
+    <meta name="email" content="barret.china@gmail.com" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
 </head>
 
 <body>
-<div id="control">
-    <div id="open">OPEN<input type="file" value="Choose Image" id="file" /></div>
-    <div id="select" data-tag="selectlinesInRectTag">SELET</div>
-    <div id="del">DELETE</div>
-    <div id="info" data-tag="drawInfoRectTag">INFO</div>
-    <div id="cols" data-tag="drawlinesInRectTag">COLS</div>
-    <div id="rows" data-tag="drawlinesInRectTag">ROWS</div>
-    <div id="net" data-tag="drawlinesInRectTag">NET</div>
-    <div id="clear">CLEAR</div>
-</div>
-<div class="box" id="box">
-    <canvas id="can" height="500" width="600"></canvas>
-</div>
-
-<script type="text/javascript" src="./js/core.js"></script>
-<script type="text/javascript" src="./js/main.js"></script>
+    <div class="header">
+        <iframe allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="20px" class="github-star" src="http://ghbtns.com/github-btn.html?user=barretlee&repo=barretlee.github.io&type=watch&count=true&size=middle"></iframe>
+        <h1>Super Marker <span>By <a href="http://barretlee.com" target="_blank">Barret Lee</a></span></h1>
+    </div>
+    <!-- Control bar -->
+    <div id="control">
+        <div id="open" data-title="O - open file">OPEN<input type="file" value="Choose Image" id="file" /></div>
+        <div id="move" data-title="M - move the pic" data-tag="movePaintTag">MOVE</div>
+        <div id="select" data-title="S - select lines, or unselect lines" data-tag="selectlinesInRectTag">SELET</div>
+        <div id="color" data-title="C - set color model" data-tag="colorTag">COLOR</div>
+        <div id="info" data-title="I - select a div, show the div's info" data-tag="drawInfoRectTag">INFO</div>
+        <div id="cols" data-title="H - draw horizenal lines" data-tag="drawlinesInRectTag">HORIZEN</div>
+        <div id="rows" data-title="V - draw vertical lines" data-tag="drawlinesInRectTag">VERTIC</div>
+        <div id="net" data-title="N - draw horizenal and veritcal lines" data-tag="drawlinesInRectTag">NET</div>
+        <div id="del" data-title="D - delete the seleted lines">DELETE</div>
+        <div id="clear" data-title="clear all lines and box">CLEAR</div>
+    </div>
+    <!-- paint box -->
+    <div class="wrapper">
+        <div class="box" id="box">
+            <canvas id="can" height="500" width="600"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/core.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
 </body>
 </html>

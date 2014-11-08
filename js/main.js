@@ -10,13 +10,23 @@ var can = document.querySelector("#can")
   , rows = document.querySelector("#rows")
   , clear = document.querySelector("#clear")
   , net = document.querySelector("#net")
+  , move = document.querySelector("#move")
   , select = document.querySelector("#select")
   , info = document.querySelector("#info")
   , del = document.querySelector("#del")
   , box = document.querySelector("#box")
+  , color = document.querySelector("#color")
   , ctx = can.getContext("2d")
   , width, height;
 
+
+// Toggle class "on"
+function tCls(that){
+    [].slice.call(document.querySelectorAll("#control div")).forEach(function(item){
+        item.className = "";
+    });
+    if(that) Core.toggleClass("on", that);
+}
 
 window.onload = function() {
     var delLines = [];
@@ -37,6 +47,8 @@ window.onload = function() {
                 var img = new Image();
                 img.src = urlData;
                 img.onload = function(){
+
+                    file.blur();
 
                     can.width = width = this.width;
                     can.height = height = this.height;
@@ -61,7 +73,7 @@ window.onload = function() {
         });
     };
 
-    // rows draw
+    // Rows draw
     rows.onclick = function(){
         Core.setTurnerTag('drawlinesInRectTag');
         tCls(this);
@@ -87,7 +99,15 @@ window.onload = function() {
         });
     };
 
-    // info box 
+    // move
+    move.onclick = function(){
+        Core.setTurnerTag('moveObjTag');
+        tCls(this);
+
+        Core.moveObj(box, true);
+    };    
+
+    // Info box 
     info.onclick = function(){
         Core.setTurnerTag('drawInfoRectTag');
         tCls(this);
@@ -100,7 +120,7 @@ window.onload = function() {
         });
     };
 
-    // select to delete
+    // Select to delete
     select.onclick = function(){
         Core.setTurnerTag('selectlinesInRectTag');
         tCls(this);
@@ -119,7 +139,7 @@ window.onload = function() {
             });
         });
     };
-    // cancal delete for some lines
+    // Cancal / reselect delete for some lines
     document.addEventListener("click", function(e){
         var $this = e.target;
         if($this.getAttribute("data-del") == "yes"){
@@ -135,8 +155,13 @@ window.onload = function() {
 
     }, true);
 
-    // delete selected lines
+    // Delete selected lines
     del.onclick = function(){
+        this.className = "on";
+        setTimeout(function(){
+            del.className = "";
+        }, 200);
+
         if(delLines.length > 0){
             [].slice.call(delLines).forEach(function(item){
                 try{item.remove();}catch(e){}
@@ -145,18 +170,70 @@ window.onload = function() {
         delLines = [];
     };
 
-    // clear all lines
+    // Clear all lines
     clear.onclick = function(){
         Core.clearLines();
     };
 
+    color.onclick = function(){
+        Core.setTurnerTag('colorTag');
+        tCls(this);
 
-    // toggle class "on"
-    function tCls(that){
-        [].slice.call(document.querySelectorAll("#control div")).forEach(function(item){
-            item.className = "";
-        });
-        Core.toggleClass("on", that);
+        Core.getColor();
     }
+
+    document.addEventListener("keyup", function(e){
+
+        switch(e.keyCode) {
+            case 32: // space
+            case 77: // M
+                move.click();
+                break;
+            case 83: // S
+                select.click();
+                break;
+            case 73: // I
+                info.click();
+                break;
+            case 72: // H
+                cols.click();
+                break;
+            case 86: // V
+                rows.click();
+                break;
+            case 78: // N
+                net.click();
+                break;
+            case 68: // D
+                del.click();
+                break;
+            case 67: // C
+                color.click();
+                break;
+            case 27: // ESC
+                Core.setTurnerTag();
+                tCls();
+                break;
+            case 79: // O
+                file.click();
+                break;
+        }
+    }, false);
+
+    // document.documentElement.onkeypress = function(e){
+    //     var cb, tmp;
+
+    //     if(e.keyCode == 32){
+    //         tmp = document.querySelector(".on");
+    //         move.onclick();
+    //         document.documentElement.addEventListener("keyup", cb = function(){
+    //             Core.setTurnerTag();
+    //             tCls();
+    //             tmp && tmp.click();
+
+    //             document.documentElement.removeEventListener("keyup", cb, false);
+    //         }, false);
+    //     }
+    // };
 };
 
