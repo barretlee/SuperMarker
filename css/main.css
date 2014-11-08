@@ -6,11 +6,10 @@
 
 @charset "utf8";
 
-body, div {
+body, div, span, h1, a {
     margin: 0;
     padding: 0;
 }
-
 body {
     user-select: none;
     -webkit-user-select: none;
@@ -18,6 +17,13 @@ body {
     font-family: 'Monaco','Source Code Pro', 'Consolas','Inconsolata','Ubuntu Mono','DejaVu Sans Mono','Courier New','Droid Sans Mono','Hiragino Sans GB','Microsoft Yahei','Menlo',monospace;
 
 }
+#control > *,#open2  {
+    transition: all 0.4s ease;
+    -weblit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+}
+
 .header {
     height: 40px;
     padding: 0 10px;
@@ -49,19 +55,11 @@ body {
 .wrapper {
     position: absolute;
     top: 60px;
-    bottom: 15px;
+    bottom: 20px;
     left: 110px;
-    right: 15px;
+    right: 20px;
     overflow: hidden;
     border: 1px solid #CCC;
-}
-#can {
-}
-#control > * {
-    transition: all 0.4s ease;
-    -weblit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
 }
 #control {
     position: absolute;
@@ -135,6 +133,27 @@ div#clear {
 div#cols, div#rows, div#net {
     background: #ECFFF3;
 }
+#open2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -110px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    background: #DDD;
+    color: #666;
+    box-shadow: 3px 3px 5px #CCC;
+    border-radius: 3px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+#open2:hover {
+    background: #AAA;
+    color: #333;
+}
 #file {
     position: absolute;
     left: 0;
@@ -170,8 +189,8 @@ button {
     padding: 5px;
     font-size: 14px;
     white-space: nowrap;
-    width: 72px;
-    background: rgba(255, 255, 255, 0.5);
+    width: 76px;
+    background: rgba(255, 255, 255, 0.6);
 }
 .color-info-box span {
     content: " ";
@@ -180,6 +199,7 @@ button {
     width: 12px;
     border: 1px solid #CCC;
     float: left;
+    margin-top: 2px;
     margin-right: 4px;
 }
 .on {

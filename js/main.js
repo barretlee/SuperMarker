@@ -9,6 +9,7 @@ var can = document.querySelector("#can")
   , cols = document.querySelector("#cols")
   , rows = document.querySelector("#rows")
   , clear = document.querySelector("#clear")
+  , open2 = document.querySelector("#open2")
   , net = document.querySelector("#net")
   , move = document.querySelector("#move")
   , select = document.querySelector("#select")
@@ -19,6 +20,7 @@ var can = document.querySelector("#can")
   , ctx = can.getContext("2d")
   , width, height;
 
+var githubURL = "http://ghbtns.com/github-btn.html?user=barretlee&repo=SuperMarker&type=watch&count=true&size=middle";
 
 // Toggle class "on"
 function tCls(that){
@@ -49,6 +51,7 @@ window.onload = function() {
                 img.onload = function(){
 
                     file.blur();
+                    open2 && open2.remove();
 
                     can.width = width = this.width;
                     can.height = height = this.height;
@@ -58,6 +61,13 @@ window.onload = function() {
                 }
             }; 
         }
+    };
+
+    open2.onclick = function(){
+        if(open2.getAttribute("loading") == "yes") return;
+        file.click();
+        open2.setAttribute("loading", "yes");
+        open2.innerHTML = "Loading...";
     };
 
     // Cols draw
@@ -235,5 +245,7 @@ window.onload = function() {
     //         }, false);
     //     }
     // };
+
+    document.querySelector(".github-star").setAttribute("src", githubURL);
 };
 

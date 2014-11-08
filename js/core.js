@@ -40,7 +40,7 @@
             can.onmousedown = box.onmousedown = 
             can.onmouseup = box.onmouseup = null;
 
-            can.style.cursor = box.style.cursor = "default";
+            box.style.cursor = "default";
             document.querySelector(".color-info-box").remove();
         }catch(e){}
 
