@@ -6,15 +6,19 @@
 
 没事儿，现在有了 Super Marker，这是一款比 mark man 更加强大的图片信息标记工具，它的强大在于智能化和自动化，可以为我们自动提取我们需要的信息，而我们需要做的只是在图片上“胡乱”地画两下。
 
+---
+
 ### 演示地址
 
 中文版: [Super Marker](http://barretlee.github.io/SuperMarker/index_cn.html)
 
 English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
 
+---
+
 ### 功能
 
-|功能   　　     |快捷键   |功能介绍                        |
+|功能           |快捷键   |功能介绍                        |
 |--------------|-----|-------------------------------------------------|
 |**移动**     |Move|如果你的图片过大，可以轻松移动图片|
 |**放大**     |Ctrl+(+/-)|由于浏览器自身有放大功能，这个功能需要等到我空闲比较多的时候补上|
@@ -25,6 +29,8 @@ English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
 |**线条选择工具**|Select|你可以通过画框来选择线条，也可以在这个工具激活模式下，点击线条以选中它。当然，也可以使用它来取消选择哦！|
 |**删除**     |Delete|当你选中一些线条之后，就可以用到这个工具了，点击它就能删除选中的线条|
 |**清空**     |Clear|清空画面中所有的线条和框|
+
+--- 
 
 ### Licence
 

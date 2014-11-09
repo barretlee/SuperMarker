@@ -1,10 +1,14 @@
 [中文版 README](https://github.com/barretlee/SuperMarker/blob/master/README_cn.md)
 
+---
+
 ### Demonstration
 
 中文版: [Super Marker](http://barretlee.github.io/SuperMarker/index_cn.html)
 
 English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
+
+---
 
 ### Why is Super Marker
 
@@ -14,7 +18,9 @@ Mark Man is slighter than Photoshop.But it still need us to enlarge the picture,
 
 Now,We have Super Marker.This is a more powerful than mark man picture information marking tool,Its strength lies in the intelligence and automation，We can automatically get the information we need.All we need to do is to move our mouse casually.
 
-### Function
+---
+
+### Functions
 
 |Function   　　|Function Introduce                        |
 |--------------|-------------------------------------------------|
@@ -52,6 +58,8 @@ Line selection tool: **S** elect
 Delete: **D** elete
 
 Empty: **C** lear
+
+---
 
 ### Licence
 
