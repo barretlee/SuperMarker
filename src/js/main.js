@@ -133,13 +133,21 @@ window.onload = function() {
         });
     };
 
+    // Ruler
+    ruler.onclick = function(){
+        Core.setTurnerTag('rulerTag');
+        tCls(this);
+
+        Core.showRuler();
+    };
+
     // Select to delete
     select.onclick = function(){
         Core.setTurnerTag('selectlinesInRectTag');
         tCls(this);
 
         Core.drawRectange(box, function(rect){
-            Core.detectInRectange(document.querySelectorAll(".line"), rect, function(lines){
+            Core.detectInRectange(document.querySelectorAll(".line, .ruler"), rect, function(lines){
                 [].slice.call(lines).forEach(function(item){
                     if(item.getAttribute("data-del") == "yes"){
                         item.removeAttribute("data-del");
@@ -160,7 +168,7 @@ window.onload = function() {
         }
 
         delLines = [];
-        [].slice.call(document.querySelectorAll(".line")).forEach(function(item){
+        [].slice.call(document.querySelectorAll(".line, .ruler")).forEach(function(item){
             if(item.getAttribute("data-del") == 'yes'){
                 delLines.push(item);
             }
@@ -177,7 +185,16 @@ window.onload = function() {
 
         if(delLines.length > 0){
             [].slice.call(delLines).forEach(function(item){
-                try{item.remove();}catch(e){}
+                try{
+                    if(item.className == "ruler"){
+                        var group = document.querySelectorAll("[data-uid="+ item.getAttribute("data-uid") + "]");
+                        [].slice.call(group).forEach(function(item){
+                            item.remove();
+                        });
+                        return;
+                    }
+                    item.remove();
+                }catch(e){}
             });
         }
         delLines = [];
@@ -196,6 +213,10 @@ window.onload = function() {
     }
 
     document.addEventListener("keyup", function(e){
+        // console.log(e.keyCode);
+
+        // fix bug
+        window.focus();
 
         switch(e.keyCode) {
             case 32: // space
@@ -204,6 +225,9 @@ window.onload = function() {
                 break;
             case 83: // S
                 select.click();
+                break;
+            case 82: // R
+                ruler.click();
                 break;
             case 73: // I
                 info.click();

@@ -15,7 +15,10 @@ body {
     -webkit-user-select: none;
     font-size: 12px;
     font-family: 'Monaco','Source Code Pro', 'Consolas','Inconsolata','Ubuntu Mono','DejaVu Sans Mono','Courier New','Droid Sans Mono','Hiragino Sans GB','Microsoft Yahei','Menlo',monospace;
-
+    background: #F5F5F5;
+}
+button {
+    cursor: pointer;
 }
 #control > *,#open2  {
     transition: all 0.4s ease;
@@ -25,13 +28,13 @@ body {
 }
 
 .header {
-    height: 40px;
+    height: 48px;
     padding: 0 10px;
     background: #333;
-    box-shadow: 0 3px 5px #333;
+    box-shadow: 0 0 5px #333;
 }
 .header h1 {
-    line-height: 40px;
+    line-height: 48px;
     color: #FFF;
 }
 .header h1 span {
@@ -46,7 +49,7 @@ body {
 }
 .github-star {
     float: right;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 .box {
     min-width: 600px; 
@@ -54,7 +57,7 @@ body {
 }
 .wrapper {
     position: absolute;
-    top: 60px;
+    top: 68px;
     bottom: 20px;
     left: 110px;
     right: 20px;
@@ -64,7 +67,7 @@ body {
 #control {
     position: absolute;
     left: 10px;
-    top: 60px;
+    top: 68px;
     width: 80px;
     border: 1px solid #CCC;
     box-shadow: 3px 3px 5px #CCC;
@@ -81,7 +84,7 @@ body {
     margin: 10px 8px;
     cursor: pointer;
     position: relative;
-    font-style: 12px;
+    font-size: 12px;
     color: #555;
 }
 #control div::after {
@@ -109,7 +112,7 @@ body {
     width: 0;
     border: 4px solid transparent;
     border-right-color: #333;
-    z-index: 120;
+    z-index: 121;
     visibility: hidden;
     cursor: default;
 }
@@ -132,6 +135,12 @@ div#clear {
 }
 div#cols, div#rows, div#net {
     background: #ECFFF3;
+}
+div#ruler {
+    background: #CBE3FF;
+}
+div#color {
+    background: #E8E0FF;
 }
 #open2 {
     position: absolute;
@@ -163,9 +172,6 @@ div#cols, div#rows, div#net {
     width: 100%;
     height: 100%;
     opacity: 0.001;
-    cursor: pointer;
-}
-button {
     cursor: pointer;
 }
 .line {
@@ -202,8 +208,80 @@ button {
     margin-top: 2px;
     margin-right: 4px;
 }
+.ruler {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    border: 0 solid red;
+    border-left-width: 1px;
+}
+.ruler-l-start, .ruler-l-end {
+    position: absolute;
+    border: 0 dotted red;
+    border-top-width: 1px;
+    width: 100%;
+    height: 0;
+    left: 0;
+    display: none;
+}
+.ruler-l-start {
+    border-style: dotted;
+}
+.ruler-l-end {
+    border-style: solid;
+}
+.ruler-c-start, .ruler-c-end {
+    position: absolute;
+    height: 6px;
+    width: 6px;
+}
+.ruler-c-start {
+    border: 2px dotted red;
+}
+.ruler-c-end {
+    cursor: move;
+    z-index: 200;
+    border: 2px solid red;
+}
+.ruler-size {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    white-space: nowrap;
+    font-style: normal;
+    font-style: 12px;
+    color: red;
+    cursor: move;
+}
+.info-rect-text {
+    color: blue;
+    border-left: 2px solid blue;
+    text-indent: 2px;
+}
+
+.color-box {
+    position: absolute;
+    padding: 2px 4px;
+    border: 1px solid red;
+    background: rgba(255, 255, 255, 0.5);
+    color: red;
+    line-height: auto !important;
+    font-size: auto !important;
+}
+.color-box::before {
+    position: absolute;
+    content: " ";
+    width: 18px;
+    height: 10px;
+    border: 1px solid red;
+    left: -20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+
 .on {
-    background: #969696 !important;
+    background: #000 !important;
     color: #FFF !important;
 }
 [data-del=yes] {

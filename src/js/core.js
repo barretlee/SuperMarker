@@ -15,18 +15,28 @@
         drawInfoRectTag: false,
         moveObjTag: false,
         colorTag: false,
+        rulerTag: false,
         ready: false
     };
+    var uid = 0;
 
     /**
      * clearLines: clear all lines drawed with DOM.
      */
     function clearLines(){
-        var divs = document.querySelectorAll(".box div");
+        var eles = document.querySelectorAll(".box div, [class^=ruler]");
 
-        for(var i = 0, len = divs.length; i < len; i++){
-            divs[i].remove();
+        for(var i = 0, len = eles.length; i < len; i++){
+            eles[i].remove();
         }
+    }
+
+    /**
+     * getUID generate unique id.
+     * @return {Number} id
+     */
+    function getUID(){
+        return ++uid;
     }
 
     /**
@@ -40,6 +50,7 @@
             can.onmousedown = box.onmousedown = 
             can.onmouseup = box.onmouseup = null;
 
+            can.onclick = null;
             box.style.cursor = "default";
             document.querySelector(".color-info-box").remove();
         }catch(e){}
@@ -354,7 +365,7 @@
                 height = 0;
                 left = e.pageX - delta.left;
                 top = e.pageY - delta.top;
-                cursor = "nw-resize";
+                cursor = "se-resize";
             }
         };
     }
@@ -487,7 +498,8 @@
         var infoRectL = document.createElement("div")
           , infoRectR = document.createElement("div")
           , infoRectT = document.createElement("div")
-          , infoRectB = document.createElement("div");
+          , infoRectB = document.createElement("div")
+          , info = document.createElement("div");
 
         try{
             [].slice.call(document.querySelectorAll(".info-rect")).forEach(function(item){
@@ -518,6 +530,12 @@
         area.appendChild(infoRectL);
         area.appendChild(infoRectR);
         area.appendChild(infoRectB);
+        area.appendChild(info);
+
+        info.style.top = rect[1] - 14;
+        info.style.left = rect[0];
+        info.className = 'info-rect info-rect-text';
+        info.innerHTML = "w:" + rect[2] + ", h:" + rect[3];
     }
 
     /**
@@ -535,8 +553,12 @@
 
         obj.onmousedown = function(e){
 
+            obj.style.cursor = "move";  
+
             var sX = e.pageX - parseInt(obj.style.left||0)
-              , sY = e.pageY - parseInt(obj.style.top||0);
+              , sY = e.pageY - parseInt(obj.style.top||0)
+              , oX = e.pageX
+              , oY = e.pageY;
 
             obj.onmousemove = function(e){
 
@@ -603,6 +625,238 @@
             box.appendChild(colorInfo);
 
             colorInfo.getElementsByTagName("span").item(0).style.backgroundColor = c;
+        };
+
+        can.onclick = function(e){
+            var x = e.pageX - delta.left
+              , y = e.pageY - delta.top;
+
+            var c = document.createElement("div");
+
+            c.className = "color-box line";
+            with(c.style){
+                top = y - 14;
+                left = x + 18;
+            }
+            c.innerHTML = colorInfo.textContent;
+
+            box.appendChild(c);
+        };
+    }
+
+    /**
+     * [showRuler description]
+     * @return {[type]}
+     */
+    function showRuler(){
+
+        if(!config['ready'] && config['rulerTag']) {
+
+            return;
+        }
+
+        box.onmousedown = function(e){
+            if(!!e.target.getAttribute("data-uid") && /ruler/.test(e.target.className)) return;
+
+            var _r = _getRulerHTML()
+              , uid = _r.uid
+              , dom = _r.dom
+              , delta = _getOffset(box)
+              , x = e.pageX - delta.left
+              , y = e.pageY - delta.top;
+        
+            var rGroup = document.querySelectorAll("[data-uid=r" + uid + "]")
+              , r = rGroup.item(1)
+              , rlStart = rGroup.item(0)
+              , rlEnd = rGroup.item(5)
+              , rcStart = rGroup.item(2)
+              , rcEnd = rGroup.item(3)
+              , rSize = rGroup.item(4)
+
+            rlStart.style.top = y;
+            rlEnd.style.top = y + 20;
+
+            with(r.style){
+                top = y;
+                left = x;
+                height = Math.abs(parseInt(rlEnd.style.top) - parseInt(rlStart.style.top));
+                width = 1;
+            }
+
+            rcStart.style.top = -5;
+            rcEnd.style.bottom = -5; 
+            rcStart.style.left = rcEnd.style.left = -6;
+
+            with(rSize.style){
+                top = "50%";
+                left = 10;
+                marginTop = -6;
+            }
+
+            rSize.innerHTML = "20px";
+
+            var rD = _getOffset(rcStart);
+            var bD = _getOffset(box);
+
+            rcEnd.onmousedown = function(){
+                rlStart.style.display = rlEnd.style.display = "none";
+
+                box.onmousemove = function(e){
+
+                    box.onmouseup = box.onmouseleave = function(){
+                        box.onmousemove = box.onmouseup = box.onmouseleave = null;
+                        rlStart.style.display = rlEnd.style.display = "none";
+                    };
+
+                    var dx = e.pageX - rD.left
+                      , dy = e.pageY - rD.top;
+
+                    if(dy <= 0 || dx <= 0) return;
+
+                    rlStart.style.display = rlEnd.style.display = "block";
+
+                    if(dx - dy >= 0){
+                        with(rlStart.style){
+                            height = parseInt(can.height);
+                            left = x;
+                            width = 0;
+                            top = 0;
+                            borderLeft = "1px dotted red";
+                        }
+                        with(rlEnd.style){
+                            height = parseInt(can.height);
+                            left = dx + x;
+                            width = 0;
+                            top = 0;
+                            borderLeft = "1px solid red";
+                        }
+                        with(r.style){
+                            height = 0;
+                            width = dx;
+                            top = y;
+                            borderTop = "1px solid red";
+                        }
+                        with(rcEnd.style){
+                            left = "auto";
+                            bottom = "auto";
+                            top = -5;
+                            right = -4;
+                        }
+                        with(rSize.style){
+                            bottom = "auto";
+                            right = "auto";
+                            top = 10;
+                            left = "50%";
+                            margin = 0;
+                            marginLeft = -6;
+                        }
+                        rSize.innerHTML = (dx + 1) + "px";
+                        r.setAttribute("data-direct", "col");
+                    } else {
+                        with(rlStart.style){
+                            width = parseInt(can.width);
+                            top = y;
+                            height = 0;
+                            left = 0;
+                            right = 0;
+                            borderLeft = "1px dotted red";
+                        }
+                        with(rlEnd.style){
+                            width = parseInt(can.width);
+                            top = dy + rlStart.offsetTop;
+                            height = 0;
+                            left = 0;
+                            right = 0;
+                            borderLeft = "1px solid red";
+                        }
+                        with(r.style){
+                            width = 0;
+                            height = dy;
+                            top = y;
+                            borderTop = "1px solid red";
+                        }
+                        with(rcEnd.style){
+                            top = "auto";
+                            right = "auto";
+                            bottom = -5;
+                            left = -5;
+                        }
+                        with(rSize.style){
+                            bottom = "auto";
+                            right = "auto";
+                            top = "50%";
+                            left = 10;
+                            margin = 0;
+                            marginTop = -6;
+                        }
+                        rSize.innerHTML = dy + "px";
+                        r.setAttribute("data-direct", "row");
+                    }
+                };
+            };
+
+            rSize.onmousedown = function(e){
+                var oX = e.pageX
+                  , oY = e.pageY;
+
+                box.onmousemove = function(e){
+                    
+                    box.onmouseup = box.onmouseleave = function(e){
+                        box.onmousemove = box.onmouseleave = box.onmouseup = null;
+                    };
+
+                    var nX = e.pageX
+                      , nY = e.pageY;
+
+                    [r, rlStart, rlEnd].forEach(function(item){
+                        with(item.style){
+                            left = parseInt(left||0) + nX - oX;
+                            top = parseInt(top||0) + nY - oY;
+                        }
+                    });
+
+                    x += (nX - oX);
+                    y += (nY - oY);
+
+                    oX = nX;
+                    oY = nY;
+                };
+            };
+        };
+        
+
+    }
+
+    /**
+     * _getRulerHTML return HTML for ruler
+     * @return {DOMString}
+     */
+    function _getRulerHTML(){
+        var r = document.createDocumentFragment()
+          , uid = getUID()
+          , ctt = [
+            '<span class="ruler-l-start" data-uid="r'+uid+'"></span>',
+            '<span class="ruler" data-uid="r'+uid+'">',
+            '    <i class="ruler-c-start" data-uid="r'+uid+'"></i>',
+            '    <i class="ruler-c-end" data-uid="r'+uid+'"></i>    ',
+            '    <i class="ruler-size" data-uid="r'+uid+'">1px</i>',
+            '</span>',
+            '<span class="ruler-l-end" data-uid="r'+uid+'"></span>'
+        ].join("\n");
+
+        // hack for DocumentFragment innerHTML bug.
+        var contain = document.createElement("div");
+
+        contain.innerHTML = ctt;
+        [].slice.call(contain.children).forEach(function(item){
+            r.appendChild(item);
+        });
+
+        box.appendChild(r);
+
+        return {
+            dom: r,
+            uid: uid
         }
     }
 
@@ -619,7 +873,8 @@
         setTurnerTag:      setTurnerTag,
         toggleClass:       toggleClass,
         moveObj:           moveObj,
-        getColor:          getColor
+        getColor:          getColor,
+        showRuler:         showRuler
     }
 
 })(window, undefined);
