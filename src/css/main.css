@@ -1,0 +1,309 @@
+/**
+ * CSS
+ * @author Barret Lee(barret.china@gmail.com)
+ * @date 11/07/2014
+ */
+
+@charset "utf8";
+
+body, div, span, h1, a {
+    margin: 0;
+    padding: 0;
+}
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    font-size: 12px;
+    font-family: 'Monaco','Source Code Pro', 'Consolas','Inconsolata','Ubuntu Mono','DejaVu Sans Mono','Courier New','Droid Sans Mono','Hiragino Sans GB','Microsoft Yahei','Menlo',monospace;
+    background: #F5F5F5;
+}
+button {
+    cursor: pointer;
+}
+#control > *,#open2  {
+    transition: all 0.4s ease;
+    -weblit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+}
+
+.header {
+    height: 48px;
+    padding: 0 10px;
+    background: #333;
+    box-shadow: 0 0 5px #333;
+}
+.header h1 {
+    font-size: 28px;
+    line-height: 48px;
+    color: #FFF;
+}
+.header h1 span {
+    font-size: 12px;
+}
+.lang {
+    float: right;
+    margin-right: 20px;
+    color: #FFF;
+    margin-top: 17px;
+    text-decoration: none;
+}
+.header h1 a {
+    color: #FFF;
+    text-decoration: none;
+}
+.header h1 a:hover {
+    border-bottom: 1px dotted #FFF;
+}
+.github-star {
+    float: right;
+    margin-top: 14px;
+}
+.box {
+    min-width: 600px; 
+    position: relative;
+}
+.wrapper {
+    position: absolute;
+    top: 68px;
+    bottom: 20px;
+    left: 110px;
+    right: 20px;
+    overflow: hidden;
+    border: 1px solid #CCC;
+}
+#control {
+    position: absolute;
+    left: 10px;
+    top: 68px;
+    width: 80px;
+    border: 1px solid #CCC;
+    box-shadow: 3px 3px 5px #CCC;
+}
+#control div {
+    width: 50px;
+    height: 24px;
+    padding: 0 5px;
+    border: 1px solid #CCC;
+    background: #EFEFEF;
+    border-radius: 3px;
+    line-height: 24px;
+    text-align: center;
+    margin: 10px 8px;
+    cursor: pointer;
+    position: relative;
+    font-size: 12px;
+    color: #555;
+}
+#control div::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    top: 2px;
+    white-space: nowrap;
+    line-height: 20px;
+    background: #333;
+    box-shadow: 1px 1px 4px #333;
+    padding: 0 8px;
+    color: #FFF;
+    border-radius: 2px;
+    z-index: 120;
+    display: none;
+
+}
+#control div::before {
+    content: " ";
+    position: absolute;
+    left: 62px;
+    top: 9px;
+    height: 0;
+    width: 0;
+    border: 4px solid transparent;
+    border-right-color: #333;
+    z-index: 121;
+    visibility: hidden;
+    cursor: default;
+}
+#control div:hover::before {
+    visibility: visible;
+}
+#control div:hover::after {
+    display: block;
+}
+div#open {
+    background: #CCC;
+}
+div#del {
+    background: #FFF;
+    color: #000;
+}
+div#clear {
+    background: #EF5555;
+    color: #FFF;
+}
+div#cols, div#rows, div#net {
+    background: #ECFFF3;
+}
+div#ruler {
+    background: #CBE3FF;
+}
+div#color {
+    background: #E8E0FF;
+}
+#open2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -110px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    background: #DDD;
+    color: #666;
+    box-shadow: 3px 3px 5px #CCC;
+    border-radius: 3px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+#open2:hover {
+    background: #AAA;
+    color: #333;
+}
+#file {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.001;
+    cursor: pointer;
+}
+.line {
+    position: absolute;
+    line-height: 0;
+    font-size: 0;
+    z-index: 100;
+}
+.area-rect {
+    position: absolute;
+    border: 1px dotted red;
+    z-index: 80;
+}
+.info-rect {
+    position: absolute;
+    z-index: 110;
+}
+.color-info-box {
+    position: absolute;
+    border: 1px solid white;
+    padding: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 76px;
+    background: rgba(255, 255, 255, 0.6);
+}
+.color-info-box span {
+    content: " ";
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border: 1px solid #CCC;
+    float: left;
+    margin-top: 2px;
+    margin-right: 4px;
+}
+.ruler {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    border: 0 solid red;
+    border-left-width: 1px;
+}
+.ruler-l-start, .ruler-l-end {
+    position: absolute;
+    border: 0 dotted red;
+    border-top-width: 1px;
+    width: 100%;
+    height: 0;
+    left: 0;
+    display: none;
+}
+.ruler-l-start {
+    border-style: dotted;
+}
+.ruler-l-end {
+    border-style: solid;
+}
+.ruler-c-start, .ruler-c-end {
+    position: absolute;
+    height: 6px;
+    width: 6px;
+}
+.ruler-c-start {
+    border: 2px dotted red;
+}
+.ruler-c-end {
+    cursor: move;
+    z-index: 200;
+    border: 2px solid red;
+}
+.ruler-size {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    white-space: nowrap;
+    font-style: normal;
+    font-style: 12px;
+    color: red;
+    cursor: move;
+}
+.info-rect-text {
+    color: blue;
+    border-left: 2px solid blue;
+    text-indent: 2px;
+}
+
+.color-box {
+    position: absolute;
+    padding: 2px 4px;
+    border: 1px solid red;
+    background: rgba(255, 255, 255, 0.5);
+    color: red;
+    line-height: 18px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+    width: 66px;
+}
+.color-box span {
+    float: left;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+.color-box::before {
+    position: absolute;
+    content: " ";
+    width: 18px;
+    height: 10px;
+    border: 1px solid red;
+    left: -20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.on {
+    background: #000 !important;
+    color: #FFF !important;
+}
+[data-del=yes] {
+    border-width: 2px !important;
+    border-color: green!important;
+    cursor: pointer;
+}

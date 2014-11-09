@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta charset="utf8" />
+    <title>Super Marker</title>
+    <meta name="author" content="小胡子哥" />
+    <meta name="email" content="barret.china@gmail.com" />
+    <link rel="stylesheet" type="text/css" href="./src/css/main.css" />
+</head>
+<!--[IF LT IE 9]>
+<h2 style="display:block;text-align:center;line-height:100px;">您的浏览器版本过低，请使用 非IE浏览器 或 IE9以上的版本 或 切换到高速模式。</h2>
+<style>
+    body * {display:none;}
+</style>
+<![ENDIF]-->
+<body>
+    <div class="header">
+        <iframe allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="20px" class="github-star"></iframe>
+        <a href="http://barretlee.github.io/SuperMarker/index.html" class="lang">English</a>
+        <h1>Super Marker <span>By <a href="http://barretlee.com" target="_blank">小胡子哥</a></span></h1>
+    </div>
+    <!-- Control bar -->
+    <div id="control">
+        <div id="open" data-title="O - 打开文件">O 打开<input type="file" value="选择图片" id="file" /></div>
+        <div id="move" data-title="M / Space - 移动画布" data-tag="movePaintTag">M 移动</div>
+        <div id="ruler" data-title="R - 尺子" data-tag="rulerTag">R 尺子</div>
+        <div id="cols" data-title="H - 自动标注横线" data-tag="drawlinesInRectTag">H 横线</div>
+        <div id="net" data-title="N - 自动标注横线和竖线" data-tag="drawlinesInRectTag">N 网格</div>
+        <div id="rows" data-title="V - 自动标注竖线" data-tag="drawlinesInRectTag">V 竖线</div>
+        <div id="color" data-title="C - 取色器" data-tag="colorTag">C 取色</div>
+        <div id="info" data-title="I - 选择区域，显示区域信息" data-tag="drawInfoRectTag">I 选框</div>
+        <div id="select" data-title="S - 选择或者去除选择" data-tag="selectlinesInRectTag">S 选择</div>
+        <div id="del" data-title="D - 删除选中的元素">D 删除</div>
+        <div id="clear" data-title="清空画布上的所有标记">清空画布</div>
+    </div>
+    <!-- paint box -->
+    <div class="wrapper">
+        <span id="open2">打开文件</span>
+        <div class="box" id="box">
+            <canvas id="can"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript" src="./src/js/core.js"></script>
+    <script type="text/javascript" src="./src/js/main.js"></script>
+</body>
+</html>

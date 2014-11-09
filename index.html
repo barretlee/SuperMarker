@@ -1,205 +1,45 @@
 <html>
 <head>
-    <title>Auto Generate Box Size</title>
+    <meta charset="utf8" />
+    <title>Super Marker</title>
+    <meta name="author" content="Barret Lee" />
+    <meta name="email" content="barret.china@gmail.com" />
+    <link rel="stylesheet" type="text/css" href="./src/css/main.css" />
 </head>
-<body>
-
-<style type="text/css">
-    .box {
-        width: 606px; margin: 100px auto;
-    }
-    #can {
-        border: 1px solid #CCC;
-    }
-    button {
-        cursor: pointer;
-    }
+<!--[IF LT IE 9]>
+<h2 style="display:block;text-align:center;line-height:100px;">Your browser version is too low, please use a non IE browser or IE9 and above version or switch to the high speed mode.</h2>
+<style>
+    body * {display:none;}
 </style>
-
-<div class="box">
-    <canvas id="can" height="500" width="606"></canvas>
-    <br /><br />
-    <input type="file" value="Choose Image" id="f" />
-    <button id="cols">show columns</button><button id="rows">show rows</button>
-</div>
-
-<script type="text/javascript">
-    var can = document.getElementById("can")
-      , f = document.getElementById("f")
-      , cols = document.getElementById("cols")
-      , rows = document.getElementById("rows")
-      , ctx = can.getContext("2d")
-      , ready = false
-      , width, height, rowLines;
-
-    var MAX_STEPS = 6
-      , DECIMAL = 3;
-
-    f.onchange = function(e){
-        var resultFile = e.target.files[0];
-        if (resultFile) {
-            var reader = new FileReader();
-            
-            reader.readAsDataURL(resultFile);
-            reader.onload = function (e) {
-                var urlData = this.result;
-                var img = new Image();
-                img.src = urlData;
-                img.onload = function(){
-
-                    can.width = width = this.width;
-                    can.height = height = this.height;
-                    ctx.drawImage(img, 0, 0);
-
-                    ready = true;
-                }
-            }; 
-        }
-    };
-
-    cols.onclick = function(){
-        if(!ready) return;
-        var lines = getLines("col", [0, 100, width, 200]);
-        drawLines(lines, "col", [0, 100, width, 200]);
-    };
-
-    rows.onclick = function(){
-        if(!ready) return;
-        var rect = [0, 273, width, height - 273];
-        var lines = getLines("row", rect);
-        drawLines(lines, "row", rect);
-    };
-
-    function getLines(direct, rect){
-        var rect = rect || [0, 0, width, height]
-          , imageData = ctx.getImageData.apply(ctx, rect)
-          , direct = direct || "col"
-          , pixels = imageData.data
-          , lineArr = []
-          , max, i, outer, inner, oBegin, iBegin;
-
-        if(direct == "col"){
-            oBegin = rect[1];
-            iBegin = rect[0];
-            outer = imageData.height;
-            inner = imageData.width;
-
-            for(i = oBegin; i < outer + oBegin; i++){
-                var iStart = width * i + iBegin
-                  , rate = {}
-                  , rgba = ""
-                  , j, v, point;
-
-                for(j = iStart; j < iStart + inner; j++) {
-                    rgba = pixels[j * 4] + "-" +
-                           pixels[j * 4 + 1] + "-" + 
-                           pixels[j * 4 + 2] + "-" + 
-                           pixels[j * 4 + 3];
-
-                    if(!rate[rgba]){
-                        rate[rgba] = 1;
-                    } else {
-                        rate[rgba] += 1;
-                    }
-                }
-
-                max = 0;
-                for(v in rate){
-                    max = Math.max(max, rate[v]);
-                }
-                lineArr.push((max / inner).toFixed(DECIMAL));
-            }
-        } else {
-            oBegin = rect[0];
-            iBegin = rect[1];
-            outer = imageData.width;
-            inner = imageData.height;
-
-            for(i = oBegin; i < outer + oBegin; i++) {
-                var rate = {}
-                  , rgba = ""
-                  , j, v, point;
-
-                for(j = iBegin; j < iBegin + inner; j++) {
-                    point = (j * width + i) * 4;
-                    rgba = pixels[point] + "-" +
-                           pixels[point + 1] + "-" + 
-                           pixels[point + 2] + "-" + 
-                           pixels[point + 3];
-
-                    if(!rate[rgba]){
-                        rate[rgba] = 1;
-                    } else {
-                        rate[rgba] += 1;
-                    }
-                }
-
-                max = 0;
-                for(v in rate){
-                    max = Math.max(max, rate[v]);
-                }
-                lineArr.push((max / inner).toFixed(DECIMAL));
-            }
-        }
-
-        return getTagsFromLines(lineArr, direct);
-    }
-
-
-    function getTagsFromLines(lineArr, direct){
-        var tags = []
-          , start = 0
-          , move = 0
-          , i = 0, len;
-
-        console.log(lineArr);
-
-        for(len = lineArr.length; i < len; i++){
-            if(lineArr[i] == lineArr[start]){
-                move++;
-            } else {
-                if(move >= MAX_STEPS){
-                    if(start - tags[tags.length - 1] <= MAX_STEPS){
-                        tags.push(start + move - 1);
-                    } else {
-                        tags = tags.concat([start - 1, start + move - 1]);
-                    }
-                }
-                start = i + 1;
-                move = 0;
-            }
-        }
-
-        console.log(tags);
-
-        // drawLines(tags, direct, rect);
-        return tags;
-
-    }
-
-
-    function drawLines(lines, direct, rect){
-
-        var rect = rect || [0, 0, width, height];
-
-        ctx.lineWidth = "1";
-        ctx.strokeStyle = "red";
-
-        for(var i = 0, len = lines.length; i < len; i++){
-            ctx.beginPath();
-
-            if(direct == "col"){
-                ctx.moveTo(rect[0], lines[i]);
-                ctx.lineTo(rect[0] + rect[2], lines[i]);
-            } else {
-                ctx.moveTo(lines[i], rect[1]);
-                ctx.lineTo(lines[i], rect[1] + rect[3]);
-            }
-            
-            ctx.stroke();
-        }
-    }
-</script>
-
+<![ENDIF]-->
+<body>
+    <div class="header">
+        <iframe allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="20px" class="github-star"></iframe>
+        <a href="http://barretlee.github.io/SuperMarker/index_cn.html" class="lang">中文版</a>
+        <h1>Super Marker <span>By <a href="http://barretlee.com" target="_blank">Barret Lee</a></span></h1>
+    </div>
+    <!-- Control bar -->
+    <div id="control">
+        <div id="open" data-title="O - open file">OPEN<input type="file" value="Choose Image" id="file" /></div>
+        <div id="move" data-title="M / Space - move the pic" data-tag="movePaintTag">MOVE</div>
+        <div id="ruler" data-title="R - ruler" data-tag="rulerTag">RULER</div>
+        <div id="cols" data-title="H - draw horizenal lines" data-tag="drawlinesInRectTag">HORIZEN</div>
+        <div id="net" data-title="N - draw horizenal and veritcal lines" data-tag="drawlinesInRectTag">NET</div>
+        <div id="rows" data-title="V - draw vertical lines" data-tag="drawlinesInRectTag">VERTIC</div>
+        <div id="color" data-title="C - set color model" data-tag="colorTag">COLOR</div>
+        <div id="info" data-title="I - select a div, show the div's info" data-tag="drawInfoRectTag">INFO</div>
+        <div id="select" data-title="S - select lines, or unselect lines" data-tag="selectlinesInRectTag">SELET</div>
+        <div id="del" data-title="D - delete the seleted lines">DELETE</div>
+        <div id="clear" data-title="clear all lines and box">CLEAR</div>
+    </div>
+    <!-- paint box -->
+    <div class="wrapper">
+        <span id="open2">Open File</span>
+        <div class="box" id="box">
+            <canvas id="can"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript" src="./src/js/core.js"></script>
+    <script type="text/javascript" src="./src/js/main.js"></script>
 </body>
 </html>
