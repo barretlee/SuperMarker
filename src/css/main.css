@@ -265,8 +265,8 @@ div#color {
     border: 1px solid red;
     background: rgba(255, 255, 255, 0.5);
     color: red;
-    line-height: auto !important;
-    font-size: auto !important;
+    line-height: 18px !important;
+    font-size: 12px !important;
 }
 .color-box::before {
     position: absolute;
