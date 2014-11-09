@@ -34,11 +34,19 @@ button {
     box-shadow: 0 0 5px #333;
 }
 .header h1 {
+    font-size: 28px;
     line-height: 48px;
     color: #FFF;
 }
 .header h1 span {
     font-size: 12px;
+}
+.lang {
+    float: right;
+    margin-right: 20px;
+    color: #FFF;
+    margin-top: 17px;
+    text-decoration: none;
 }
 .header h1 a {
     color: #FFF;
