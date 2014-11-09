@@ -1,16 +1,16 @@
 [中文版 README](https://github.com/barretlee/SuperMarker/blob/master/README_cn.md)
 
----
 
 ### Demonstration
+---
 
 中文版: [Super Marker](http://barretlee.github.io/SuperMarker/index_cn.html)
 
 English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
 
----
 
 ### Why is Super Marker
+---
 
 Be a Font End Development Engineer since 2012,I was deeply aware of the challenge that when you obtain the design draft from the hands of designers ,You need technical and physical strength to turn it into a web page.Imagine that if there are a lot of div on a draft design,In order to aware of the  width, height, margin, pading, font-size properties，We're going to do more than 200 times measuring.If you are not very quickly, so it will take you 10 to 20 minutes.Not to mention the time taken to obtained the color of border-color, background, color and so on.So all measurements of the time will be longer than one hour.
 
@@ -18,9 +18,9 @@ Mark Man is slighter than Photoshop.But it still need us to enlarge the picture,
 
 Now,We have Super Marker.This is a more powerful than mark man picture information marking tool,Its strength lies in the intelligence and automation，We can automatically get the information we need.All we need to do is to move our mouse casually.
 
----
 
 ### Functions
+---
 
 |Function   　　|Function Introduce                        |
 |--------------|-------------------------------------------------|
@@ -34,6 +34,7 @@ Now,We have Super Marker.This is a more powerful than mark man picture informati
 |**Empty**|Empty all lines and boxes in the picture.|
 
 ### Shortcut keys
+---
 
 The first letters of each word is the shortcut keys.
 
@@ -59,9 +60,9 @@ Delete: **D** elete
 
 Empty: **C** lear
 
----
 
 ### Licence
+---
 
 Licensed under MIT.
 
