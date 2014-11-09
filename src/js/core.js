@@ -631,6 +631,8 @@
             var x = e.pageX - delta.left
               , y = e.pageY - delta.top;
 
+            if(!colorInfo.textContent) return;
+
             var c = document.createElement("div");
 
             c.className = "color-box line";
@@ -638,7 +640,9 @@
                 top = y - 14;
                 left = x + 18;
             }
-            c.innerHTML = colorInfo.textContent;
+
+            c.innerHTML =  "<span></span>" + colorInfo.textContent;
+            c.getElementsByTagName("span").item(0).style.backgroundColor = colorInfo.textContent;
 
             box.appendChild(c);
         };
@@ -799,9 +803,15 @@
                 var oX = e.pageX
                   , oY = e.pageY;
 
+                rlStart.style.display = rlEnd.style.display = "block";
+
                 box.onmousemove = function(e){
+
+                    rlStart.style.display = rlEnd.style.display = "block";
                     
                     box.onmouseup = box.onmouseleave = function(e){
+
+                        rlStart.style.display = rlEnd.style.display = "none";
                         box.onmousemove = box.onmouseleave = box.onmouseup = null;
                     };
 
