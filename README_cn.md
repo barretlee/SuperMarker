@@ -11,6 +11,8 @@
 ### 演示地址
 ---
 
+![demo](http://files.cnblogs.com/hustskyking/ret.gif)
+
 中文版: [Super Marker](http://barretlee.github.io/SuperMarker/index_cn.html)
 
 English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
