@@ -330,6 +330,13 @@ div#color {
     font-style: 16px;
     border-radius: 8px;
     box-shadow: 3px 3px 5px #CCC;
+    
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 120px;
+    margin: auto;
 }
 .mask-info  a {
     color: #FFF;
