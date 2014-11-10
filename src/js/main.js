@@ -23,6 +23,12 @@ var can = document.querySelector("#can")
 var githubURL = "http://ghbtns.com/github-btn.html?user=barretlee&repo=SuperMarker&type=watch&count=true&size=middle";
 var isCN = document.body.getAttribute("lang") == "cn";
 
+if(navigator.appVersion.indexOf("MSIE") > -1) {
+    HTMLElement.prototype.remove = HTMLElement.prototype.remove || function(){
+        this.parentNode && this.parentNode.removeChild(this);
+    };
+};
+
 // Toggle class "on"
 function tCls(that){
     [].slice.call(document.querySelectorAll("#control div")).forEach(function(item){
