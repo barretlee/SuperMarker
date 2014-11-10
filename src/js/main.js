@@ -43,10 +43,10 @@ function m(msg){
         maskInfo.innerHTML += msg;
     } else {
         if(isCN){
-            maskInfo.innerHTML += "欢迎体验 Super Marker，这是一款比 mark man 好用的自动标记神器。<br />" +
+            maskInfo.innerHTML += "欢迎体验 Super Marker，这是一款(将来^_^)比 mark man 好用的自动标记神器。<br />" +
                 "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>演示地址</a>"
         } else {
-            maskInfo.innerHTML += "Welcome to experience Super Marker, an automatic marking tool better than mark man.<br />" +
+            maskInfo.innerHTML += "Welcome to experience Super Marker, an automatic marking tool better than mark man( in future ^_^).<br />" +
                 "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>Demonstration</a>"
         }
     }
