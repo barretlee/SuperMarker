@@ -21,6 +21,7 @@ var can = document.querySelector("#can")
   , width, height;
 
 var githubURL = "http://ghbtns.com/github-btn.html?user=barretlee&repo=SuperMarker&type=watch&count=true&size=middle";
+var isCN = document.body.getAttribute("lang") == "cn";
 
 // Toggle class "on"
 function tCls(that){
@@ -30,7 +31,7 @@ function tCls(that){
     if(that) Core.toggleClass("on", that);
 }
 
-(function m(){
+function m(msg){
     var mask = document.createElement("div");
     mask.className = "mask";
     var maskInfo = document.createElement("div");
@@ -38,12 +39,16 @@ function tCls(that){
 
     maskInfo.innerHTML = "<a href='#' id='maskInfoClose'>×</a>";
 
-    if(document.body.getAttribute("lang") == "cn"){
-        maskInfo.innerHTML += "欢迎体验 Super Marker，这是一款比 mark man 好用的自动标记神器。<br />" +
-            "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>演示地址</a>"
+    if(msg) {
+        maskInfo.innerHTML += msg;
     } else {
-        maskInfo.innerHTML += "Welcome to experience Super Marker, an automatic marking tool better than mark man.<br />" +
-            "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>Demonstration</a>"
+        if(isCN){
+            maskInfo.innerHTML += "欢迎体验 Super Marker，这是一款(将来^_^)比 mark man 好用的自动标记神器。<br />" +
+                "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>演示地址</a>"
+        } else {
+            maskInfo.innerHTML += "Welcome to experience Super Marker, an automatic marking tool better than mark man( in future ^_^).<br />" +
+                "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>Demonstration</a>"
+        }
     }
 
     document.body.appendChild(mask);
@@ -54,7 +59,8 @@ function tCls(that){
         mask.remove();
         maskInfo.remove();
     }
-})();
+};
+m();
 
 
 window.onload = function() {
@@ -64,6 +70,10 @@ window.onload = function() {
     file.onchange = function(e){
         var resultFile = e.target.files[0];
 
+        if(!/image/.test(resultFile.type)){
+            m(isCN ? "抱歉，暂时不支持非图片格式，后续会加强的！" : "Sorry, temporarily does not support non image format, will strengthen the follow-up!");
+            return;
+        }
         if(open2){
             open2.setAttribute("loading", "yes");
             open2.innerHTML = "Loading...";
