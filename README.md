@@ -1,12 +1,16 @@
 [中文版 README](https://github.com/barretlee/SuperMarker/blob/master/README_cn.md)
 
+
 ### Demonstration
+---
 
 中文版: [Super Marker](http://barretlee.github.io/SuperMarker/index_cn.html)
 
 English Version: [Super Marker](http://barretlee.github.io/SuperMarker/)
 
+
 ### Why is Super Marker
+---
 
 Be a Font End Development Engineer since 2012,I was deeply aware of the challenge that when you obtain the design draft from the hands of designers ,You need technical and physical strength to turn it into a web page.Imagine that if there are a lot of div on a draft design,In order to aware of the  width, height, margin, pading, font-size properties，We're going to do more than 200 times measuring.If you are not very quickly, so it will take you 10 to 20 minutes.Not to mention the time taken to obtained the color of border-color, background, color and so on.So all measurements of the time will be longer than one hour.
 
@@ -14,7 +18,9 @@ Mark Man is slighter than Photoshop.But it still need us to enlarge the picture,
 
 Now,We have Super Marker.This is a more powerful than mark man picture information marking tool,Its strength lies in the intelligence and automation，We can automatically get the information we need.All we need to do is to move our mouse casually.
 
-### Function
+
+### Functions
+---
 
 |Function   　　|Function Introduce                        |
 |--------------|-------------------------------------------------|
@@ -28,6 +34,7 @@ Now,We have Super Marker.This is a more powerful than mark man picture informati
 |**Empty**|Empty all lines and boxes in the picture.|
 
 ### Shortcut keys
+---
 
 The first letters of each word is the shortcut keys.
 
@@ -53,27 +60,9 @@ Delete: **D** elete
 
 Empty: **C** lear
 
+
 ### Licence
+---
 
 Licensed under MIT.
-
-Copyright (C) 2013 https://github.com/barretlee/SuperMarker
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 

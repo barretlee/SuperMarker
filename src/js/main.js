@@ -30,6 +30,33 @@ function tCls(that){
     if(that) Core.toggleClass("on", that);
 }
 
+(function m(){
+    var mask = document.createElement("div");
+    mask.className = "mask";
+    var maskInfo = document.createElement("div");
+    maskInfo.className = "mask-info";
+
+    maskInfo.innerHTML = "<a href='#' id='maskInfoClose'>×</a>";
+
+    if(document.body.getAttribute("lang") == "cn"){
+        maskInfo.innerHTML += "欢迎体验 Super Marker，这是一款比 mark man 好用的自动标记神器。<br />" +
+            "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>演示地址</a>"
+    } else {
+        maskInfo.innerHTML += "Welcome to experience Super Marker, an automatic marking tool better than mark man.<br />" +
+            "<a href='http://files.cnblogs.com/hustskyking/ret.gif' target='_blank'>Demonstration</a>"
+    }
+
+    document.body.appendChild(mask);
+    document.body.appendChild(maskInfo);
+
+    document.querySelector("#maskInfoClose").onclick = function(e){
+        e.preventDefault();
+        mask.remove();
+        maskInfo.remove();
+    }
+})();
+
+
 window.onload = function() {
     var delLines = [];
 
