@@ -307,3 +307,41 @@ div#color {
     border-color: green!important;
     cursor: pointer;
 }
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.3;
+}
+.mask-info {
+    position: absolute;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    margin-left: -130px;
+    margin-top: -80px;
+    padding: 20px 40px;
+    background: #000;
+    color: #FFF;
+    line-height: 32px;
+    font-style: 16px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px #CCC;
+}
+.mask-info  a {
+    color: #FFF;
+    border-bottom: 1px dotted #FFF;
+    text-decoration: none;
+}
+#maskInfoClose {
+    color: #FFF;
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    border: none;
+    text-decoration: none;
+}
